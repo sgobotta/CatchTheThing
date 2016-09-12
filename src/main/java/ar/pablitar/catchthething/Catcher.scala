@@ -14,7 +14,7 @@ import scala.collection.mutable.ArrayBuffer
 import ar.pablitar.vainilla.commons.math.Semiplane
 import ar.pablitar.vainilla.commons.inspectors.MathInspector
 
-class Catcher(val shadow: CatcherShadow) extends SpeedyComponent[CatchTheThingScene] {
+class Catcher(val scene: CatchTheThingScene, val shadow: CatcherShadow) extends SpeedyComponent[CatchTheThingScene] {
   private var _showDebug = false
   override def showDebug = _showDebug
   def showDebug_=(value: Boolean) = _showDebug = value
@@ -39,9 +39,14 @@ class Catcher(val shadow: CatcherShadow) extends SpeedyComponent[CatchTheThingSc
   
   shadow.position = this.position
   
+  
+  var seeds = 0
+  
   override def update(state :DeltaState) = {
     val speedX:Double = 
-      if(state.isKeyBeingHold(Key.RIGHT)) speedMagnitude 
+      if(state.isKeyBeingHold(Key.SHIFT) && state.isKeyBeingHold(Key.RIGHT)) speedMagnitude * 3
+      else if(state.isKeyBeingHold(Key.RIGHT)) speedMagnitude
+      else if(state.isKeyBeingHold(Key.SHIFT) && state.isKeyBeingHold(Key.LEFT)) -speedMagnitude * 3
       else if(state.isKeyBeingHold(Key.LEFT)) -speedMagnitude
       else 0.0
     
@@ -71,6 +76,7 @@ class Catcher(val shadow: CatcherShadow) extends SpeedyComponent[CatchTheThingSc
     Resources.macetaAnimation.reset()
     this.setAppearance(TimedAppearance.fromAnimationTo(this, Resources.macetaAnimation, Resources.macetaIdle))
     shadow.onCaught()
+    scene.score(ball)
   }
 
   def setAppearanceAccordingToSpeed(sp: Double) = {

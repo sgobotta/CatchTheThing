@@ -15,13 +15,24 @@ import java.awt.geom.AffineTransform
 import ar.pablitar.vainilla.commons.inspectors.MathInspector
 import java.awt.geom.Point2D
 
-class Ball extends SpeedyComponent[CatchTheThingScene] {
+class Ball(scene: CatchTheThingScene, spawnParams: SpawnParameters) extends SpeedyComponent[CatchTheThingScene] {
+  
+  val spawnParameters = spawnParams
+  
+  this.setScene(scene)
+  
+  this.setX(spawnParameters.xPosition)
+  
+  
+  val scoreValue = 10
+  def getScoreValue = { this.scoreValue }
+  
   val diameter = 40
   def radius = diameter / 2
 
   var catched = false
 
-  this.speed = (Random.nextInt(800), 0)
+  this.speed = spawnParameters.speed
 
   override val acceleration = Some(Vector2D(0, 1000))
 
@@ -101,7 +112,9 @@ class Ball extends SpeedyComponent[CatchTheThingScene] {
   }
 
   def checkIfBelowTheScreen() = {
-    if (this.position.x2 > 650)
+    if (this.position.x2 > 650) {
+      this.scene.resetScore
       this.destroy()
+    }
   }
 }

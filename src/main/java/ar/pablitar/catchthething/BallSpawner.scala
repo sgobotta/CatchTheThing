@@ -4,7 +4,9 @@ import com.uqbar.vainilla.GameComponent
 import com.uqbar.vainilla.DeltaState
 import scala.util.Random
 
-class BallSpawner extends GameComponent[CatchTheThingScene] {
+class BallSpawner(scene: CatchTheThingScene) extends GameComponent[CatchTheThingScene] {
+  
+  this.setScene(scene)
   
   var cooldown = generateCooldown
   var timer = 0.0
@@ -19,9 +21,9 @@ class BallSpawner extends GameComponent[CatchTheThingScene] {
       timer += state.getDelta
     }
   }
-  
+
   def spawnBall = {
-    val ball = new Ball
+    val ball = new Ball(this.scene, new SpawnParameters)
     this.getScene.addComponent(ball)
   }
 
