@@ -18,7 +18,7 @@ class SeedsDisplay(scene: CatchTheThingScene) extends RichGameComponent[CatchThe
 
   
   def updateLabel = {
-    this.setAppearance(new Label(new Font(Font.SANS_SERIF, Font.BOLD, 16), Color.WHITE, "Seeds: " + points))
+    this.setAppearance(new Label(new Font(Font.SANS_SERIF, Font.BOLD, 16), Color.BLACK, "Seeds: " + points))
   }
 
   def sumScore: Unit = {

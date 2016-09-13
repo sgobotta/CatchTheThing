@@ -13,6 +13,7 @@ object Resources {
 
   val spritesheet = Sprite.fromImage("maceta.png").scale(scale)
   val spritesheetShadow = Sprite.fromImage("maceta-shadow.png").scale(scale)
+  val spritesheetEyes = Sprite.fromImage("maceta-eyes.png").scale(scale)
 
   val background = Sprite.fromImage("background.png")
 
@@ -23,8 +24,10 @@ object Resources {
 
   val macetaAnimation = animationFromSpritesheet(spritesheet, spriteWidth, spriteHeight, 0.04)
   val macetaShadowAnimation = animationFromSpritesheet(spritesheetShadow, spriteWidth, spriteHeight, 0.04)
+  val macetaEyesAnimation = animationFromSpritesheet(spritesheetEyes, spriteWidth, spriteHeight, 0.04)
   val macetaIdle = spritesheet.crop(0, 0, spriteHeight, spriteWidth).center()
   val macetaIdleShadow = spritesheetShadow.crop(0, 0, spriteHeight, spriteWidth).center()
+  val macetaIdleEyes = spritesheetEyes.crop(0, 0, spriteHeight, spriteWidth).center()
 
   //  val macetaLeft = macetaIdle.rotate(Math.PI / 16).center()
   //  val macetaRight = macetaIdle.rotate(-Math.PI / 16).center()

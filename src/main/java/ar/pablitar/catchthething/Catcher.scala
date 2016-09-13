@@ -14,7 +14,7 @@ import scala.collection.mutable.ArrayBuffer
 import ar.pablitar.vainilla.commons.math.Semiplane
 import ar.pablitar.vainilla.commons.inspectors.MathInspector
 
-class Catcher(val scene: CatchTheThingScene, val shadow: CatcherShadow) extends SpeedyComponent[CatchTheThingScene] {
+class Catcher(val scene: CatchTheThingScene, val shadow: CatcherShadow, val eyes: CatcherEyes) extends SpeedyComponent[CatchTheThingScene] {
   private var _showDebug = false
   override def showDebug = _showDebug
   def showDebug_=(value: Boolean) = _showDebug = value
@@ -29,7 +29,7 @@ class Catcher(val scene: CatchTheThingScene, val shadow: CatcherShadow) extends 
   def walls = bottomWall +: sideWalls
   
   val speedMagnitude = 600.0 // px/seg
-  this.setZ(-1)
+  this.setZ(-2)
   
   this.setAppearance(
       Resources.macetaIdle
@@ -37,6 +37,7 @@ class Catcher(val scene: CatchTheThingScene, val shadow: CatcherShadow) extends 
   
   this.position = Vector2D(400, 500) 
   
+  eyes.position = this.position
   shadow.position = this.position
   
   
@@ -44,9 +45,9 @@ class Catcher(val scene: CatchTheThingScene, val shadow: CatcherShadow) extends 
   
   override def update(state :DeltaState) = {
     val speedX:Double = 
-      if(state.isKeyBeingHold(Key.SHIFT) && state.isKeyBeingHold(Key.RIGHT)) speedMagnitude * 3
+      if(state.isKeyBeingHold(Key.SHIFT) && state.isKeyBeingHold(Key.RIGHT)) speedMagnitude * 4
       else if(state.isKeyBeingHold(Key.RIGHT)) speedMagnitude
-      else if(state.isKeyBeingHold(Key.SHIFT) && state.isKeyBeingHold(Key.LEFT)) -speedMagnitude * 3
+      else if(state.isKeyBeingHold(Key.SHIFT) && state.isKeyBeingHold(Key.LEFT)) -speedMagnitude * 4
       else if(state.isKeyBeingHold(Key.LEFT)) -speedMagnitude
       else 0.0
     
@@ -59,6 +60,7 @@ class Catcher(val scene: CatchTheThingScene, val shadow: CatcherShadow) extends 
     }
     
     super.update(state)
+    eyes.position = this.position
     shadow.position = this.position
   }
   
@@ -75,6 +77,7 @@ class Catcher(val scene: CatchTheThingScene, val shadow: CatcherShadow) extends 
   def caught(ball: Ball) = {
     Resources.macetaAnimation.reset()
     this.setAppearance(TimedAppearance.fromAnimationTo(this, Resources.macetaAnimation, Resources.macetaIdle))
+    eyes.onCaught()
     shadow.onCaught()
     scene.score(ball)
   }

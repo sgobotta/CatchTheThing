@@ -19,7 +19,7 @@ class ComboDisplay(scene: CatchTheThingScene) extends RichGameComponent[CatchThe
 
   
   def updateLabel = {
-    this.setAppearance(new Label(new Font(Font.SANS_SERIF, Font.BOLD, 16), Color.WHITE, "Combo: " + points))
+    this.setAppearance(new Label(new Font(Font.SANS_SERIF, Font.BOLD, 16), Color.BLACK, "Combo: " + points))
   }
 
   def sumScore: Unit = {

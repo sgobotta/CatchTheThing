@@ -24,7 +24,7 @@ class ScoreDisplay(scene: CatchTheThingScene) extends RichGameComponent[CatchThe
 
   
   def updateLabel = {
-    this.setAppearance(new Label(new Font(Font.SANS_SERIF, Font.BOLD, 16), Color.WHITE, "Score: " + points))
+    this.setAppearance(new Label(new Font(Font.SANS_SERIF, Font.BOLD, 16), Color.BLACK, "Score: " + points))
   }
 
   def sumScore: Unit = {
@@ -44,9 +44,9 @@ class ScoreDisplay(scene: CatchTheThingScene) extends RichGameComponent[CatchThe
   
   def applyMagicValue(currentCombo: Int) = {
     if (this.isBetween(currentCombo, baby, rookie)) this.setMagicValue(3)
-    else if (this.isBetween(currentCombo, rookie, gardener)) this.setMagicValue(5)
-    else if (this.isBetween(currentCombo, gardener, farmer)) this.setMagicValue(7)
-    else if (currentCombo >= gardener) this.setMagicValue(10)
+    else if (this.isBetween(currentCombo, rookie, gardener)) this.setMagicValue(9)
+    else if (this.isBetween(currentCombo, gardener, farmer)) this.setMagicValue(27)
+    else if (currentCombo >= farmer) this.setMagicValue(81)
     else this.setMagicValue(1)
   }
   
@@ -55,9 +55,9 @@ class ScoreDisplay(scene: CatchTheThingScene) extends RichGameComponent[CatchThe
   }
   
   def baby     = { 3 }
-  def rookie   = { 15 }
-  def gardener = { 20 }
-  def farmer   = { 25 }
+  def rookie   = { 7 }
+  def gardener = { 10 }
+  def farmer   = { 12 }
   
   def resetScore = {
   }

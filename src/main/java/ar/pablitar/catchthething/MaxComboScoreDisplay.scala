@@ -17,7 +17,7 @@ class MaxComboScoreDisplay(scene: CatchTheThingScene) extends RichGameComponent[
 
   
   def updateLabel = {
-    this.setAppearance(new Label(new Font(Font.SANS_SERIF, Font.BOLD, 16), Color.WHITE, "Max Combo: " + combo))
+    this.setAppearance(new Label(new Font(Font.SANS_SERIF, Font.BOLD, 16), Color.BLACK, "Max Combo: " + combo))
   }
 
   def sumScore: Unit = {
