@@ -14,7 +14,7 @@ import scala.collection.mutable.ArrayBuffer
 import ar.pablitar.vainilla.commons.math.Semiplane
 import ar.pablitar.vainilla.commons.inspectors.MathInspector
 
-class Catcher(val scene: CatchTheThingScene, val shadow: CatcherShadow, val eyes: CatcherEyes) extends SpeedyComponent[CatchTheThingScene] {
+class Catcher(val scene: CatchTheThingScene, val shadow: CatcherShadow, val eyes: CatcherEyes, val mouth: CatcherMouth, val smile: CatcherSmile) extends SpeedyComponent[CatchTheThingScene] {
   private var _showDebug = false
   override def showDebug = _showDebug
   def showDebug_=(value: Boolean) = _showDebug = value
@@ -31,14 +31,18 @@ class Catcher(val scene: CatchTheThingScene, val shadow: CatcherShadow, val eyes
   val speedMagnitude = 600.0 // px/seg
   this.setZ(-2)
   
+  var appearanceState = null
+  
   this.setAppearance(
       Resources.macetaIdle
   )
   
-  this.position = Vector2D(400, 500) 
+  this.position   = Vector2D(400, 500) 
   
-  eyes.position = this.position
+  eyes.position   = this.position
   shadow.position = this.position
+  mouth.position  = this.position
+  smile.position  = this.position
   
   
   var seeds = 0
@@ -60,8 +64,11 @@ class Catcher(val scene: CatchTheThingScene, val shadow: CatcherShadow, val eyes
     }
     
     super.update(state)
-    eyes.position = this.position
+    eyes.position   = this.position
     shadow.position = this.position
+    mouth.position  = this.position
+    smile.position  = this.position
+    
   }
   
   override def render(graphics: Graphics2D) = {
@@ -80,6 +87,8 @@ class Catcher(val scene: CatchTheThingScene, val shadow: CatcherShadow, val eyes
     eyes.onCaught()
     shadow.onCaught()
     scene.score(ball)
+    mouth.onCaught()
+    
   }
 
   def setAppearanceAccordingToSpeed(sp: Double) = {
@@ -87,6 +96,11 @@ class Catcher(val scene: CatchTheThingScene, val shadow: CatcherShadow, val eyes
 //      this.setAppearance(x$1)
 //    } TODO
   }
+  
+  def setAppearanceAccordingToCombo() = {
+    
+  }
+  
 }
 
 

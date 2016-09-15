@@ -11,7 +11,7 @@ class CatchTheThingScene extends GameScene {
   val maxComboDisplay = new MaxComboScoreDisplay(this)
   val feedback = new FeedbackManager(this, scoreDisplay, seedsDisplay, comboDisplay, maxComboDisplay)
   
-  val catcher = new Catcher(this, new CatcherShadow, new CatcherEyes)
+  val catcher = new Catcher(this, new CatcherShadow, new CatcherEyes, new CatcherMouth, new CatcherSmile)
   val background = new GameComponent
   background.setAppearance(Resources.background)
   background.setZ(-50)
@@ -24,6 +24,8 @@ class CatchTheThingScene extends GameScene {
   this.addComponent(catcher.eyes)
   this.addComponent(catcher)
   this.addComponent(catcher.shadow)
+  this.addComponent(catcher.mouth)
+  //this.addComponent(catcher.smile)
   this.addComponent(new BallSpawner(this))
   this.addComponent(new Sun(Vector2D(575, 85)))
   
